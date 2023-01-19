@@ -1,23 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
 
+import Block from "./Block";
+// You have to take one input from the user, let’s say n (an integer), and the task is to design a n*n chess board, just the ui part of it, nothing functional, it should be n*n and it should be black and white alternating squares
 function App() {
+  const [arr, setArr] = useState([]);
+  // const [color, setColor] = useState(true);
+
+  function inputHandler(event) {
+    let arr = [];
+    for (let i = 0; i < event.target.value; i++) {
+      arr.push(1);
+    }
+    console.log(arr);
+    setArr(arr);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input onChange={inputHandler} type="number" />
+      <div className="board">
+        <table>
+          {arr &&
+            arr.map((item, idx) => {
+              return (
+                <tr>
+                  {arr.map((item, index) => {
+                    return (
+                      <td>
+                        <Block outerIndex={idx} innerIndex={index} />
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+        </table>
+      </div>
     </div>
   );
 }
